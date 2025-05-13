@@ -1,5 +1,3 @@
-# EPAM
-
 # 📱 EPAM iOS Trainee Program
 
 Welcome to the official repository for the **EPAM iOS Trainee Course**.  
