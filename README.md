@@ -23,6 +23,7 @@ Throughout the course, trainees gain experience with modern iOS development tool
   - `Git Basics.pages` — Summary of Git commands, concepts, and workflows learned during the course.  
 - `Swift Part 1/` — Comprehensive introduction to Swift programming fundamentals.  
   - `Swift Part 1 Theory.pages` — Covers Swift's type safety, value types, operators, string handling, collections, control flow, functions, closures, and enumerations.
+  - `Task 1 - Palindrome check.playground` — Implementation of a function that checks if a string is a palindrome, ignoring spaces, punctuation, capitalization, and control characters.
 
 ---
 
