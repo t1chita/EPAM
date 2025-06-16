@@ -8,6 +8,9 @@
 import UIKit
 
 final class PersonalInfoViewController: UIViewController {
+    private lazy var name: String = ""
+    private lazy var number: String = ""
+    
     private lazy var textfieldStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -54,7 +57,6 @@ final class PersonalInfoViewController: UIViewController {
         setupSelfView()
         setupViews()
         setupActions()
-        handleTextFieldObservation()
     }
     
     private func setupSelfView() {
@@ -102,11 +104,33 @@ final class PersonalInfoViewController: UIViewController {
     }
     
     private func setupActions() {
-        
+        handleConfirmButtonTap()
+        handleTextFieldObservation()
     }
     
-    private func handleButtonTap() {
-        
+    private func handleConfirmButtonTap() {
+        confirmButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.number = self?.numberTextField.text ?? ""
+            self?.name = self?.nameTextField.text ?? ""
+            
+            self?.showConfirmationAlert()
+        }), for: .touchUpInside)
+    }
+    
+    private func showConfirmationAlert() {
+        let alert = UIAlertController(
+            title: "Confirm Information",
+            message: "Please confirm your name and phone number.\nName: \(name), \nPhone: \(number)",
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "Edit", style: .cancel))
+
+        alert.addAction(UIAlertAction(title: "Confirm", style: .default) { _ in
+            print("Form submitted")
+        })
+
+        present(alert, animated: true)
     }
     
     private func handleTextFieldObservation() {
@@ -121,7 +145,7 @@ final class PersonalInfoViewController: UIViewController {
     private func validateInputs() {
         let nameIsValid = !(nameTextField.text ?? "").trimmingCharacters(in: .whitespaces).isEmpty
         let number = numberTextField.text ?? ""
-        let numberIsValid = number.trimmingCharacters(in: .whitespaces).count >= 9 // or use regex
+        let numberIsValid = number.trimmingCharacters(in: .whitespaces).count >= 9
 
         if nameIsValid && numberIsValid {
             confirmButton.isEnabled = true
