@@ -194,6 +194,7 @@ final class ConfirmDetailsViewController: UIViewController {
           )
           
           alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+              NotificationCenter.default.post(name: .didCompleteOnboarding, object: nil)
               // Restart app flow
               UserManager.shared.hasOnboarded = true // Optional: update flag
               if let onboardingVC = self?.navigationController?.viewControllers.first(where: { $0 is OnBoardingViewController }) as? OnBoardingViewController {
@@ -216,4 +217,7 @@ final class ConfirmDetailsViewController: UIViewController {
         phoneLabel.text = "Phone Number: \(phone)"
         preferenceLabel.text = "Notification Preference: \(preference) Notifications"
     }
+}
+extension Notification.Name {
+    static let didCompleteOnboarding = Notification.Name("didCompleteOnboarding")
 }
