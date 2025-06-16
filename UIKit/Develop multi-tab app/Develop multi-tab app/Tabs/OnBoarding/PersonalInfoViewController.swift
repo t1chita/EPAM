@@ -8,9 +8,6 @@
 import UIKit
 
 final class PersonalInfoViewController: UIViewController {
-    private lazy var name: String = ""
-    private lazy var number: String = ""
-    
     private lazy var textfieldStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -110,8 +107,8 @@ final class PersonalInfoViewController: UIViewController {
     
     private func handleConfirmButtonTap() {
         confirmButton.addAction(UIAction(handler: { [weak self] _ in
-            self?.number = self?.numberTextField.text ?? ""
-            self?.name = self?.nameTextField.text ?? ""
+            UserManager.shared.number = self?.numberTextField.text ?? ""
+            UserManager.shared.name = self?.nameTextField.text ?? ""
             
             self?.showConfirmationAlert()
         }), for: .touchUpInside)
@@ -120,7 +117,7 @@ final class PersonalInfoViewController: UIViewController {
     private func showConfirmationAlert() {
         let alert = UIAlertController(
             title: "Confirm Information",
-            message: "Please confirm your name and phone number.\nName: \(name), \nPhone: \(number)",
+            message: "Please confirm your name and phone number.\nName: \(UserManager.shared.name), \nPhone: \(UserManager.shared.number)",
             preferredStyle: .alert
         )
 

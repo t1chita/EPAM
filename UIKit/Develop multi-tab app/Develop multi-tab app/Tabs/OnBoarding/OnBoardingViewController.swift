@@ -61,4 +61,9 @@ final class OnBoardingViewController: UIViewController {
         self.navigationController?.pushViewController(PersonalInfoViewController(),
                                                       animated: true)
     }
+    
+    func updateForRestartedState() {
+        startButton.setTitle("Restart", for: .normal)
+        startButton.backgroundColor = .systemGreen
+    }
 }

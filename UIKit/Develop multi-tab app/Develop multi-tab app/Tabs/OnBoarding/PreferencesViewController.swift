@@ -24,6 +24,15 @@ final class PreferencesViewController: UIViewController {
         return button
     }()
     
+    private lazy var confirmButton: BaseButton = {
+        let button = BaseButton()
+        button.configure(
+            withColor: .systemGreen,
+            title: "Confirm",
+        )
+        return button
+    }()
+    
     private lazy var preferenceLabel: UILabel = {
         let label = UILabel()
         label.text = "Selected: None"
@@ -51,11 +60,13 @@ final class PreferencesViewController: UIViewController {
     private func addSubviews() {
         view.addSubview(selectButton)
         view.addSubview(preferenceLabel)
+        view.addSubview(confirmButton)
     }
     
     private func setupConstraints() {
         setupSelectButtonConstraints()
         setupPreferenceLabelConstraints()
+        setupConfirmationButtonConstraints()
     }
     
     private func setupSelectButtonConstraints() {
@@ -76,10 +87,31 @@ final class PreferencesViewController: UIViewController {
         )
     }
     
+    private func setupConfirmationButtonConstraints() {
+        NSLayoutConstraint.activate(
+            [
+                confirmButton.topAnchor.constraint(equalTo: preferenceLabel.bottomAnchor, constant: 16),
+                confirmButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            ]
+        )
+    }
+    
     private func setupActions() {
         selectButton.addAction(UIAction(handler: { [weak self] _ in
             self?.showPreferenceActionSheet()
         }), for: .touchUpInside)
+        
+        confirmButton.addAction(UIAction(handler: { [weak self] _ in
+            UserManager.shared.preference = self?.selectedPreference ?? "None"
+            
+            self?.handleChoosingPreference()
+        }), for: .touchUpInside)
+    }
+    
+    private func handleChoosingPreference() {
+        let vc = ConfirmDetailsViewController()
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func showPreferenceActionSheet() {
