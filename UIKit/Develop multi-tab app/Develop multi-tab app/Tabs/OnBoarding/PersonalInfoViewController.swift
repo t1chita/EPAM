@@ -126,8 +126,8 @@ final class PersonalInfoViewController: UIViewController {
 
         alert.addAction(UIAlertAction(title: "Edit", style: .cancel))
 
-        alert.addAction(UIAlertAction(title: "Confirm", style: .default) { _ in
-            print("Form submitted")
+        alert.addAction(UIAlertAction(title: "Confirm", style: .default) {[weak self] _ in
+            self?.navigateToPreferences()
         })
 
         present(alert, animated: true)
@@ -154,5 +154,10 @@ final class PersonalInfoViewController: UIViewController {
             confirmButton.isEnabled = false
             confirmButton.alpha = 0.5
         }
+    }
+    
+    private func navigateToPreferences() {
+        let vc = PreferencesViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
