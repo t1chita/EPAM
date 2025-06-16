@@ -13,6 +13,7 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         self.setupTabs()
         
+        self.tabBar.backgroundColor = .orange
         self.tabBar.tintColor = .white
         self.tabBar.unselectedItemTintColor = .lightGray
     }
@@ -30,11 +31,9 @@ class TabBarController: UITabBarController {
             vc: ProfileViewController()
         )
         
-        let settings = createNav(
-            withTitle: "Settings",
-            and: UIImage(systemName: "gearshape")!,
-            vc: SettingsViewController()
-        )
+        let settings = SettingsViewController()
+        settings.tabBarItem.title = "Settings"
+        settings.tabBarItem.image = UIImage(systemName: "gear")!
         
         self.setViewControllers([onboarding, profile, settings], animated: true)
     }
@@ -49,9 +48,6 @@ class TabBarController: UITabBarController {
         nav.tabBarItem.title = title
         nav.tabBarItem.image = image
         
-        nav.viewControllers.first?.navigationItem.title = title + "Controllers"
-
         return nav
     }
-
 }
